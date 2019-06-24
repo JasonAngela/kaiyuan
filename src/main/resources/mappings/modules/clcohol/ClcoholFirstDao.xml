@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.clcohol.dao.ClcoholFirstDao">
+    
+	<sql id="clcoholFirstColumns">
+		a.id AS "id",
+		a.register_id AS "register.id",
+		a.entrust AS "entrust",
+		a.matters_entrusted AS "mattersEntrusted",
+		a.accept_date AS "acceptDate",
+		a.testing_materials AS "testingMaterials",
+		a.person_being AS "personBeing",
+		a.basic_facts AS "basicFacts",
+		a.sample_status AS "sampleStatus",
+		a.work_instruction AS "workInstruction",
+		a.testing_standards AS "testingStandards",
+		a.instruments AS "instruments",
+		a.test_passes AS "testPasses",
+		a.test_results AS "testResults",
+		a.first_peple AS "firstPeple",
+		a.other AS "other",
+		a.other1 AS "other1",
+		a.other2 AS "other2",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="clcoholFirstJoins">
+	</sql>
+	
+    <select  id="findRegister" resultType="ClcoholFirst">
+      select * from
+      clcohol_first a
+      where a.register_id=#{register.id}
+    </select>
+	
+    
+	<select id="get" resultType="ClcoholFirst">
+		SELECT 
+			<include refid="clcoholFirstColumns"/>
+		FROM clcohol_first a
+		<include refid="clcoholFirstJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ClcoholFirst">
+		SELECT 
+			<include refid="clcoholFirstColumns"/>
+		FROM clcohol_first a
+		<include refid="clcoholFirstJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="register != null and register.id != null and register.id != ''">
+				AND a.register_id = #{register.id}
+			</if>
+			<if test="entrust != null and entrust != ''">
+				AND a.entrust = #{entrust}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ClcoholFirst">
+		SELECT 
+			<include refid="clcoholFirstColumns"/>
+		FROM clcohol_first a
+		<include refid="clcoholFirstJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO clcohol_first(
+			id,
+			register_id,
+			entrust,
+			matters_entrusted,
+			accept_date,
+			testing_materials,
+			person_being,
+			basic_facts,
+			sample_status,
+			work_instruction,
+			testing_standards,
+			instruments,
+			test_passes,
+			test_results,
+			first_peple,
+			other,
+			other1,
+			other2,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{register.id},
+			#{entrust},
+			#{mattersEntrusted},
+			#{acceptDate},
+			#{testingMaterials},
+			#{personBeing},
+			#{basicFacts},
+			#{sampleStatus},
+			#{workInstruction},
+			#{testingStandards},
+			#{instruments},
+			#{testPasses},
+			#{testResults},
+			#{firstPeple},
+			#{other},
+			#{other1},
+			#{other2},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE clcohol_first SET 	
+			register_id = #{register.id},
+			entrust = #{entrust},
+			matters_entrusted = #{mattersEntrusted},
+			accept_date = #{acceptDate},
+			testing_materials = #{testingMaterials},
+			person_being = #{personBeing},
+			basic_facts = #{basicFacts},
+			sample_status = #{sampleStatus},
+			work_instruction = #{workInstruction},
+			testing_standards = #{testingStandards},
+			instruments = #{instruments},
+			test_passes = #{testPasses},
+			test_results = #{testResults},
+			first_peple = #{firstPeple},
+			other = #{other},
+			other1 = #{other1},
+			other2 = #{other2},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE clcohol_first SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

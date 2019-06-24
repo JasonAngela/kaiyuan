@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.entrust.dao.EntrustCourierDao">
+    
+	<sql id="entrustCourierColumns">
+		a.id AS "id",
+		a.entrust_id AS "entrustId",
+		a.orderno AS "orderno",
+		a.sender AS "sender",
+		a.instructions AS "instructions",
+		a.cost AS "cost",
+		a.other AS "other",
+		a.other1 AS "other1",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="entrustCourierJoins">
+	</sql>
+    
+	<select id="get" resultType="EntrustCourier">
+		SELECT 
+			<include refid="entrustCourierColumns"/>
+		FROM entrust_courier a
+		<include refid="entrustCourierJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	
+	<select id="findEntrust" resultType="EntrustCourier">
+		select * from entrust_courier a
+		where a.entrust_id=#{entrustId}
+	</select>
+	
+	<select id="findList" resultType="EntrustCourier">
+		SELECT 
+			<include refid="entrustCourierColumns"/>
+		FROM entrust_courier a
+		<include refid="entrustCourierJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="entrustId != null and entrustId != ''">
+				AND a.entrust_id = #{entrustId}
+			</if>
+			<if test="orderno != null and orderno != ''">
+				AND a.orderno = #{orderno}
+			</if>
+			<if test="sender != null and sender != ''">
+				AND a.sender = #{sender}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="EntrustCourier">
+		SELECT 
+			<include refid="entrustCourierColumns"/>
+		FROM entrust_courier a
+		<include refid="entrustCourierJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO entrust_courier(
+			id,
+			entrust_id,
+			orderno,
+			sender,
+			instructions,
+			cost,
+			other,
+			other1,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{entrustId},
+			#{orderno},
+			#{sender},
+			#{instructions},
+			#{cost},
+			#{other},
+			#{other1},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE entrust_courier SET 	
+			entrust_id = #{entrustId},
+			orderno = #{orderno},
+			sender = #{sender},
+			instructions = #{instructions},
+			cost = #{cost},
+			other = #{other},
+			other1 = #{other1},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE entrust_courier SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

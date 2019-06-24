@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.clcohol.dao.ClcoholSecondDao">
+    
+	<sql id="clcoholSecondColumns">
+		a.id AS "id",
+		a.register_id AS "register.id",
+		a.basic_facts AS "basicFacts",
+		a.sample_status AS "sampleStatus",
+		a.work_instruction AS "workInstruction",
+		a.testing_standards AS "testingStandards",
+		a.instruments AS "instruments",
+		a.test_passes AS "testPasses",
+		a.test_result AS "testResult",
+		a.second_people AS "secondPeople",
+		a.other AS "other",
+		a.other1 AS "other1",
+		a.other2 AS "other2",
+		a.other3 AS "other3",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="clcoholSecondJoins">
+	</sql>
+    
+	<select id="get" resultType="ClcoholSecond">
+		SELECT 
+			<include refid="clcoholSecondColumns"/>
+		FROM clcohol_second a
+		<include refid="clcoholSecondJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	
+	<select id="findRegister" resultType="ClcoholSecond">
+	  select * from
+      clcohol_second a
+      where a.register_id=#{register.id}
+	</select>
+	
+	
+	<select id="findList" resultType="ClcoholSecond">
+		SELECT 
+			<include refid="clcoholSecondColumns"/>
+		FROM clcohol_second a
+		<include refid="clcoholSecondJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ClcoholSecond">
+		SELECT 
+			<include refid="clcoholSecondColumns"/>
+		FROM clcohol_second a
+		<include refid="clcoholSecondJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO clcohol_second(
+			id,
+			register_id,
+			basic_facts,
+			sample_status,
+			work_instruction,
+			testing_standards,
+			instruments,
+			test_passes,
+			test_result,
+			second_people,
+			other,
+			other1,
+			other2,
+			other3,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{register.id},
+			#{basicFacts},
+			#{sampleStatus},
+			#{workInstruction},
+			#{testingStandards},
+			#{instruments},
+			#{testPasses},
+			#{testResult},
+			#{secondPeople},
+			#{other},
+			#{other1},
+			#{other2},
+			#{other3},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE clcohol_second SET 	
+			register_id = #{register.id},
+			basic_facts = #{basicFacts},
+			sample_status = #{sampleStatus},
+			work_instruction = #{workInstruction},
+			testing_standards = #{testingStandards},
+			instruments = #{instruments},
+			test_passes = #{testPasses},
+			test_result = #{testResult},
+			second_people = #{secondPeople},
+			other = #{other},
+			other1 = #{other1},
+			other2 = #{other2},
+			other3 = #{other3},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE clcohol_second SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

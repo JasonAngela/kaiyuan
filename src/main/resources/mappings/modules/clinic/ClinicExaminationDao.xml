@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.clinic.dao.ClinicExaminationDao">
+    
+	<sql id="clinicExaminationColumns">
+		a.register_id AS "register.id",
+		a.id AS "id",
+		a.name AS "name",
+		a.sex AS "sex",
+		a.check_time AS "checkTime",
+		a.check_name AS "checkName",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.clinic_surveyor AS "clinicSurveyor",
+		a.check_address AS "checkAddress",
+		a.cc AS "cc",
+		a.situation AS "situation",
+		a.head_face AS "headFace",
+		a.trunk AS "trunk",
+		a.limbs AS "limbs",
+		a.other AS "other",
+		a.reading AS "reading",
+		a.dou_check AS "douCheck",
+		a.uploud AS "uploud"
+	</sql>
+	
+	<sql id="clinicExaminationJoins">
+	</sql>
+    
+	<select id="get" resultType="ClinicExamination">
+		SELECT 
+			<include refid="clinicExaminationColumns"/>
+		FROM clinic_examination a
+		<include refid="clinicExaminationJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findone" resultType="ClinicExamination">
+		SELECT *
+		FROM clinic_examination a
+		WHERE a.register_id = #{register.id}
+	</select>
+	
+	<select id="findList" resultType="ClinicExamination">
+		SELECT 
+			<include refid="clinicExaminationColumns"/>
+		FROM clinic_examination a
+		<include refid="clinicExaminationJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="register != null and register.id != null and register.id != ''">
+				AND a.register_id = #{register.id}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="sex != null and sex != ''">
+				AND a.sex = #{sex}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ClinicExamination">
+		SELECT 
+			<include refid="clinicExaminationColumns"/>
+		FROM clinic_examination a
+		<include refid="clinicExaminationJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO clinic_examination(
+			register_id,
+			id,
+			name,
+			sex,
+			check_time,
+			check_name,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			clinic_surveyor,
+			check_address,
+			cc,
+			situation,
+			head_face,
+			trunk,
+			limbs,
+			other,
+			reading,
+			dou_check,
+			uploud
+		) VALUES (
+			#{register.id},
+			#{id},
+			#{name},
+			#{sex},
+			#{checkTime},
+			#{checkName},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{clinicSurveyor},
+			#{checkAddress},
+			#{cc},
+			#{situation},
+			#{headFace},
+			#{trunk},
+			#{limbs},
+			#{other},
+			#{reading},
+			#{douCheck},
+			#{uploud}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE clinic_examination SET 	
+			register_id = #{register.id},
+			name = #{name},
+			sex = #{sex},
+			check_time = #{checkTime},
+			check_name = #{checkName},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			clinic_surveyor = #{clinicSurveyor},
+			check_address = #{checkAddress},
+			cc = #{cc},
+			situation = #{situation},
+			head_face = #{headFace},
+			trunk = #{trunk},
+			limbs = #{limbs},
+			other = #{other},
+			reading = #{reading},
+			dou_check = #{douCheck},
+			uploud =#{uploud}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE clinic_examination SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.clinic.dao.ClinicFirstdraftDao">
+    
+	<sql id="clinicFirstdraftColumns">
+		a.register_id AS "register.id",
+		a.id AS "id",
+		a.opinion AS "opinion",
+		a.first_opinion AS "firstOpinion",
+		a.clinic_party AS "clinicParty",
+		a.clinicent_rusted AS "clinicentRusted",
+		a.clinic_entrust_date AS "clinicEntrustDate",
+		a.clinic_identification AS "clinicIdentification",
+		a.clinic_person AS "clinicPerson",
+		a.clinic_attorney AS "clinicAttorney",
+		a.clinic_this_paper AS "clinicThisPaper",
+		a.inspection_methods AS "inspectionMethods",
+		a.appraisal_standard AS "appraisalStandard",
+		a.identified_through AS "identifiedThrough",
+		a.appraisal_date AS "appraisalDate",
+		a.presence_personnel AS "presencePersonnel",
+		a.cc AS "cc",
+		a.body AS "body",
+		a.reading AS "reading",
+		a.analysis_shows AS "analysisShows",
+		a.expert_opinion AS "expertOpinion",
+		a.first_surveyor AS "firstSurveyor",
+		a.surveyor_date AS "surveyorDate",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="clinicFirstdraftJoins">
+	</sql>
+    
+    
+    <select id="findOne" resultType="ClinicFirstdraft">
+    	SELECT * FROM 
+    	clinic_firstdraft a WHERE
+     	a.register_id = #{register.id}
+    </select> 
+    
+	<select id="get" resultType="ClinicFirstdraft">
+		SELECT 
+			<include refid="clinicFirstdraftColumns"/>
+		FROM clinic_firstdraft a
+		<include refid="clinicFirstdraftJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ClinicFirstdraft">
+		SELECT 
+			<include refid="clinicFirstdraftColumns"/>
+		FROM clinic_firstdraft a
+		<include refid="clinicFirstdraftJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="register != null and register.id != null and register.id != ''">
+				AND a.register_id = #{register.id}
+			</if>
+			<if test="clinicParty != null and clinicParty != ''">
+				AND a.clinic_party = #{clinicParty}
+			</if>
+			<if test="clinicPerson != null and clinicPerson != ''">
+				AND a.clinic_person = #{clinicPerson}
+			</if>
+			<if test="beginAppraisalDate != null and endAppraisalDate != null and beginAppraisalDate != '' and endAppraisalDate != ''">
+				AND a.appraisal_date BETWEEN #{beginAppraisalDate} AND #{endAppraisalDate}
+			</if>
+			<if test="firstSurveyor != null and firstSurveyor != ''">
+				AND a.first_surveyor = #{firstSurveyor}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ClinicFirstdraft">
+		SELECT 
+			<include refid="clinicFirstdraftColumns"/>
+		FROM clinic_firstdraft a
+		<include refid="clinicFirstdraftJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO clinic_firstdraft(
+			register_id,
+			id,
+			opinion,
+			first_opinion,
+			clinic_party,
+			clinicent_rusted,
+			clinic_entrust_date,
+			clinic_identification,
+			clinic_person,
+			clinic_attorney,
+			clinic_this_paper,
+			inspection_methods,
+			appraisal_standard,
+			identified_through,
+			appraisal_date,
+			presence_personnel,
+			cc,
+			body,
+			reading,
+			analysis_shows,
+			expert_opinion,
+			first_surveyor,
+			surveyor_date,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{register.id},
+			#{id},
+			#{opinion},
+			#{firstOpinion},
+			#{clinicParty},
+			#{clinicentRusted},
+			#{clinicEntrustDate},
+			#{clinicIdentification},
+			#{clinicPerson},
+			#{clinicAttorney},
+			#{clinicThisPaper},
+			#{inspectionMethods},
+			#{appraisalStandard},
+			#{identifiedThrough},
+			#{appraisalDate},
+			#{presencePersonnel},
+			#{cc},
+			#{body},
+			#{reading},
+			#{analysisShows},
+			#{expertOpinion},
+			#{firstSurveyor},
+			#{surveyorDate},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE clinic_firstdraft SET 	
+			register_id = #{register.id},
+			opinion = #{opinion},
+			first_opinion = #{firstOpinion},
+			clinic_party = #{clinicParty},
+			clinicent_rusted = #{clinicentRusted},
+			clinic_entrust_date = #{clinicEntrustDate},
+			clinic_identification = #{clinicIdentification},
+			clinic_person = #{clinicPerson},
+			clinic_attorney = #{clinicAttorney},
+			clinic_this_paper = #{clinicThisPaper},
+			inspection_methods = #{inspectionMethods},
+			appraisal_standard = #{appraisalStandard},
+			identified_through = #{identifiedThrough},
+			appraisal_date = #{appraisalDate},
+			presence_personnel = #{presencePersonnel},
+			cc = #{cc},
+			body = #{body},
+			reading = #{reading},
+			analysis_shows = #{analysisShows},
+			expert_opinion = #{expertOpinion},
+			first_surveyor = #{firstSurveyor},
+			surveyor_date = #{surveyorDate},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE clinic_firstdraft SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

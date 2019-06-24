@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.clcohol.dao.ClcoholEvidenceDao">
+    
+	<sql id="clcoholEvidenceColumns">
+		a.id AS "id",
+		a.resgister_id AS "resgister.id",
+		a.name AS "name",
+		a.code AS "code",
+		a.casecode AS "casecode",
+		a.entrust AS "entrust",
+		a.entrust_date AS "entrustDate",
+		a.address AS "address",
+		a.mining AS "mining",
+		a.miningdate AS "miningdate",
+		a.type AS "type",
+		a.other AS "other",
+		a.inspection AS "inspection",
+		a.inspection_number AS "inspectionNumber",
+		a.sample_state AS "sampleState",
+		a.other1 AS "other1",
+		a.other2 AS "other2",
+		a.other3 AS "other3",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="clcoholEvidenceJoins">
+	</sql>
+    
+	<select id="get" resultType="ClcoholEvidence">
+		SELECT 
+			<include refid="clcoholEvidenceColumns"/>
+		FROM clcohol_evidence a
+		<include refid="clcoholEvidenceJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="getRegister" resultType="ClcoholEvidence">
+	select * from
+		 clcohol_evidence a 
+		  where a.resgister_id =#{resgister.id}
+	</select>
+	
+	
+	<select id="findList" resultType="ClcoholEvidence">
+		SELECT 
+			<include refid="clcoholEvidenceColumns"/>
+		FROM clcohol_evidence a
+		<include refid="clcoholEvidenceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="code != null and code != ''">
+				AND a.code = #{code}
+			</if>
+			<if test="casecode != null and casecode != ''">
+				AND a.casecode = #{casecode}
+			</if>
+			<if test="entrustDate != null and entrustDate != ''">
+				AND a.entrust_date = #{entrustDate}
+			</if>
+			<if test="miningdate != null and miningdate != ''">
+				AND a.miningdate = #{miningdate}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ClcoholEvidence">
+		SELECT 
+			<include refid="clcoholEvidenceColumns"/>
+		FROM clcohol_evidence a
+		<include refid="clcoholEvidenceJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO clcohol_evidence(
+			id,
+			resgister_id,
+			name,
+			code,
+			casecode,
+			entrust,
+			entrust_date,
+			address,
+			mining,
+			miningdate,
+			type,
+			other,
+			inspection,
+			inspection_number,
+			sample_state,
+			other1,
+			other2,
+			other3,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{resgister.id},
+			#{name},
+			#{code},
+			#{casecode},
+			#{entrust},
+			#{entrustDate},
+			#{address},
+			#{mining},
+			#{miningdate},
+			#{type},
+			#{other},
+			#{inspection},
+			#{inspectionNumber},
+			#{sampleState},
+			#{other1},
+			#{other2},
+			#{other3},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE clcohol_evidence SET 	
+			resgister_id = #{resgister.id},
+			name = #{name},
+			code = #{code},
+			casecode = #{casecode},
+			entrust = #{entrust},
+			entrust_date = #{entrustDate},
+			address = #{address},
+			mining = #{mining},
+			miningdate = #{miningdate},
+			type = #{type},
+			other = #{other},
+			inspection = #{inspection},
+			inspection_number = #{inspectionNumber},
+			sample_state = #{sampleState},
+			other1 = #{other1},
+			other2 = #{other2},
+			other3 = #{other3},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE clcohol_evidence SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

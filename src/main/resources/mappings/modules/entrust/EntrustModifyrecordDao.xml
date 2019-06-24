@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.entrust.dao.EntrustModifyrecordDao">
+    
+	<sql id="entrustModifyrecordColumns">
+		a.register_id AS "register.id",
+		a.id AS "id",
+		a.userby AS "userby",
+		a.modefy AS "modefy",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="entrustModifyrecordJoins">
+	</sql>
+    
+		
+	<select id="getRegister" resultType="EntrustModifyrecord">
+		SELECT 
+			*
+		FROM entrust_modifyrecord a
+		WHERE a.register_id = #{register.id}
+	</select>
+	
+	<select id="get" resultType="EntrustModifyrecord">
+		SELECT 
+			<include refid="entrustModifyrecordColumns"/>
+		FROM entrust_modifyrecord a
+		<include refid="entrustModifyrecordJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="EntrustModifyrecord">
+		SELECT 
+			<include refid="entrustModifyrecordColumns"/>
+		FROM entrust_modifyrecord a
+		<include refid="entrustModifyrecordJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="register != null and register.id != null and register.id != ''">
+				AND a.register_id = #{register.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="EntrustModifyrecord">
+		SELECT 
+			<include refid="entrustModifyrecordColumns"/>
+		FROM entrust_modifyrecord a
+		<include refid="entrustModifyrecordJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO entrust_modifyrecord(
+			register_id,
+			id,
+			userby,
+			modefy,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{register.id},
+			#{id},
+			#{userby},
+			#{modefy},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE entrust_modifyrecord SET 	
+			register_id = #{register.id},
+			userby = #{userby},
+			modefy = #{modefy},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE entrust_modifyrecord SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

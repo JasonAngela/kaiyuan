@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.clcohol.dao.ClcoholAuthorizationDao">
+    
+	<sql id="clcoholAuthorizationColumns">
+		a.id AS "id",
+		a.register_id AS "register.id",
+		a.basic_facts AS "basicFacts",
+		a.sample_status AS "sampleStatus",
+		a.work_instruction AS "workInstruction",
+		a.testing_standards AS "testingStandards",
+		a.instruments AS "instruments",
+		a.test_result AS "testResult",
+		a.other AS "other",
+		a.other1 AS "other1",
+		a.other2 AS "other2",
+		a.other3 AS "other3",
+		a.authorization_people AS "authorizationPeople",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="clcoholAuthorizationJoins">
+	</sql>
+    
+    
+    <select id="findRegister" resultType="ClcoholAuthorization">
+     select * from 
+     clcohol_authorization a
+     where a.register_id = #{register.id}
+    </select>
+    
+    
+    
+    
+	<select id="get" resultType="ClcoholAuthorization">
+		SELECT 
+			<include refid="clcoholAuthorizationColumns"/>
+		FROM clcohol_authorization a
+		<include refid="clcoholAuthorizationJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ClcoholAuthorization">
+		SELECT 
+			<include refid="clcoholAuthorizationColumns"/>
+		FROM clcohol_authorization a
+		<include refid="clcoholAuthorizationJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ClcoholAuthorization">
+		SELECT 
+			<include refid="clcoholAuthorizationColumns"/>
+		FROM clcohol_authorization a
+		<include refid="clcoholAuthorizationJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO clcohol_authorization(
+			id,
+			register_id,
+			basic_facts,
+			sample_status,
+			work_instruction,
+			testing_standards,
+			instruments,
+			test_result,
+			other,
+			other1,
+			other2,
+			other3,
+			authorization_people,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{register.id},
+			#{basicFacts},
+			#{sampleStatus},
+			#{workInstruction},
+			#{testingStandards},
+			#{instruments},
+			#{testResult},
+			#{other},
+			#{other1},
+			#{other2},
+			#{other3},
+			#{authorizationPeople},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE clcohol_authorization SET 	
+			register_id = #{register.id},
+			basic_facts = #{basicFacts},
+			sample_status = #{sampleStatus},
+			work_instruction = #{workInstruction},
+			testing_standards = #{testingStandards},
+			instruments = #{instruments},
+			test_result = #{testResult},
+			other = #{other},
+			other1 = #{other1},
+			other2 = #{other2},
+			other3 = #{other3},
+			authorization_people = #{authorizationPeople},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE clcohol_authorization SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

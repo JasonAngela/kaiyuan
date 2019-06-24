@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.clinic.dao.ClinicPhysicalDao">
+    
+	<sql id="clinicPhysicalColumns">
+		a.register_id AS "register.id",
+		a.id AS "id",
+		a.code AS "code",
+		a.case_code AS "caseCode",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="clinicPhysicalJoins">
+	</sql>
+    
+	<select id="get" resultType="ClinicPhysical">
+		SELECT 
+			<include refid="clinicPhysicalColumns"/>
+		FROM clinic_physical a
+		<include refid="clinicPhysicalJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	
+		<select id="findOne" resultType="ClinicPhysical">
+		SELECT 
+			<include refid="clinicPhysicalColumns"/>
+		FROM clinic_physical a
+		<include refid="clinicPhysicalJoins"/>
+		WHERE a.register_id = #{register.id}
+	</select>
+	
+	
+	
+	<select id="findList" resultType="ClinicPhysical">
+		SELECT 
+			<include refid="clinicPhysicalColumns"/>
+		FROM clinic_physical a
+		<include refid="clinicPhysicalJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="code != null and code != ''">
+				AND a.code = #{code}
+			</if>
+			<if test="caseCode != null and caseCode != ''">
+				AND a.case_code = #{caseCode}
+			</if>
+			<if test="beginCreateDate != null and endCreateDate != null and beginCreateDate != '' and endCreateDate != ''">
+				AND a.create_date BETWEEN #{beginCreateDate} AND #{endCreateDate}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ClinicPhysical">
+		SELECT 
+			<include refid="clinicPhysicalColumns"/>
+		FROM clinic_physical a
+		<include refid="clinicPhysicalJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO clinic_physical(
+			register_id,
+			id,
+			code,
+			case_code,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{register.id},
+			#{id},
+			#{code},
+			#{caseCode},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE clinic_physical SET 	
+			register_id = #{register.id},
+			code = #{code},
+			case_code = #{caseCode},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE clinic_physical SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

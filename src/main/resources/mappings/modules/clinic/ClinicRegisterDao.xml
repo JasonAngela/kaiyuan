@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.clinic.dao.ClinicRegisterDao">
+    
+	<sql id="clinicRegisterColumns">
+		a.id AS "id",
+		a.code AS "code",
+		a.case_code AS "caseCode",
+		a.client_name AS "clientName",
+		a.client_tel AS "clientTel",
+		a.client_receiver AS "clientReceiver",
+		a.client_email AS "clientEmail",
+		a.client_fax AS "clientFax",
+		a.client_zipcode AS "clientZipcode",
+		a.client_area AS "clientArea",
+		a.client_address AS "clientAddress",
+		a.agent_name AS "agentName",
+		a.agent_tel AS "agentTel",
+		a.server_name AS "serverName",
+		a.server_org_id AS "serverOrgId",
+		a.send_mode AS "sendMode",
+		a.specialty AS "specialty",
+		a.type AS "type",
+		a.material AS "material",
+		a.material_dispose AS "materialDispose",
+		a.time_limit_result AS "timeLimitResult",
+		a.time_limit_report AS "timeLimitReport",
+		a.standard_fee AS "standardFee",
+		a.special_fee AS "specialFee",
+		a.total_fee AS "totalFee",
+		a.appraisal_item AS "appraisalItem",
+		a.client_avoid AS "clientAvoid",
+		a.authorize_notification AS "authorizeNotification",
+		a.status AS "status",
+		a.proc_ins_id AS "procInsId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.surveyor_name AS "surveyorName",
+		a.surveyor_sex AS "surveyorSex",
+		a.surveyor_birthday AS "surveyorBirthday",
+		a.matters_entrusted AS "mattersEntrusted",
+		a.clinic_identification AS "clinicIdentification",
+		a.clinic_triage AS "clinicTriage",
+		a.clinic_medical AS "clinicMedical",
+		a.clinic_summary AS "clinicSummary",
+		a.clinic_xray AS "clinicXray",
+		a.clinic_ct AS "clinicCt",
+		a.idCard AS "idCard",
+		a.clinic_mri AS "clinicMri"
+	</sql>
+	
+	<sql id="clinicRegisterJoins">
+	</sql>
+	
+	
+    
+	<select id="get" resultType="ClinicRegister">
+		SELECT 
+			<include refid="clinicRegisterColumns"/>
+		FROM clinic_register a
+		<include refid="clinicRegisterJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	
+	<select id="findExport" resultType="ClinicRegister">
+		select * from
+		clinic_register a
+	 	where a.create_date BETWEEN #{beginCreateDate} AND #{endCreateDate}
+	</select>
+	
+	<select id="findList" resultType="ClinicRegister">
+		SELECT 
+			<include refid="clinicRegisterColumns"/>
+		FROM clinic_register a
+		<include refid="clinicRegisterJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			
+			
+			 <if test="code != null and code != ''">
+				AND a.code = #{code}
+					<if test="dbName == 'oracle'">'%'||#{code}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{code}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{code},'%')</if>
+			</if> 
+			<if test="caseCode != null and caseCode != ''">
+				AND a.case_code = #{caseCode}
+					<if test="dbName == 'oracle'">'%'||#{caseCode}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{caseCode}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{caseCode},'%')</if>
+			</if>
+			<if test="clientName != null and clientName != ''">
+				AND a.client_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{clientName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{clientName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{clientName},'%')</if>
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type LIKE 
+					<if test="dbName == 'oracle'">'%'||#{type}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{type}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{type},'%')</if>
+			</if>
+			<!-- <if test="clientName != null and clientName != ''">
+				AND a.client_name = #{clientName}
+			</if> -->
+			<if test="beginCreateDate != null and endCreateDate != null and beginCreateDate != '' and endCreateDate != ''">
+				AND a.create_date BETWEEN #{beginCreateDate} AND #{endCreateDate}
+			</if>
+			<if test="surveyorName != null and surveyorName != ''">
+			AND a.surveyor_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{surveyor_name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{surveyor_name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{surveyor_name},'%')</if>
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ClinicRegister">
+		SELECT 
+			<include refid="clinicRegisterColumns"/>
+		FROM clinic_register a
+		<include refid="clinicRegisterJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO clinic_register(
+			id,
+			code,
+			case_code,
+			client_name,
+			client_tel,
+			client_receiver,
+			client_email,
+			client_fax,
+			client_zipcode,
+			client_area,
+			client_address,
+			agent_name,
+			agent_tel,
+			server_name,
+			server_org_id,
+			send_mode,
+			specialty,
+			type,
+			material,
+			material_dispose,
+			time_limit_result,
+			time_limit_report,
+			standard_fee,
+			special_fee,
+			total_fee,
+			appraisal_item,
+			client_avoid,
+			authorize_notification,
+			status,
+			proc_ins_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			surveyor_name,
+			surveyor_sex,
+			surveyor_birthday,
+			matters_entrusted,
+			clinic_identification,
+			clinic_triage,
+			clinic_medical,
+			clinic_summary,
+			clinic_xray,
+			clinic_ct,
+			idCard,
+			clinic_mri
+		) VALUES (
+			#{id},
+			#{code},
+			#{caseCode},
+			#{clientName},
+			#{clientTel},
+			#{clientReceiver},
+			#{clientEmail},
+			#{clientFax},
+			#{clientZipcode},
+			#{clientArea},
+			#{clientAddress},
+			#{agentName},
+			#{agentTel},
+			#{serverName},
+			#{serverOrgId},
+			#{sendMode},
+			#{specialty},
+			#{type},
+			#{material},
+			#{materialDispose},
+			#{timeLimitResult},
+			#{timeLimitReport},
+			#{standardFee},
+			#{specialFee},
+			#{totalFee},
+			#{appraisalItem},
+			#{clientAvoid},
+			#{authorizeNotification},
+			#{status},
+			#{procInsId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{surveyorName},
+			#{surveyorSex},
+			#{surveyorBirthday},
+			#{mattersEntrusted},
+			#{clinicIdentification},
+			#{clinicTriage},
+			#{clinicMedical},
+			#{clinicSummary},
+			#{clinicXray},
+			#{clinicCt},
+			#{idCard},
+			#{clinicMri}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE clinic_register SET 	
+			code = #{code},
+			case_code = #{caseCode},
+			client_name = #{clientName},
+			client_tel = #{clientTel},
+			client_receiver = #{clientReceiver},
+			client_email = #{clientEmail},
+			client_fax = #{clientFax},
+			client_zipcode = #{clientZipcode},
+			client_area = #{clientArea},
+			client_address = #{clientAddress},
+			agent_name = #{agentName},
+			agent_tel = #{agentTel},
+			server_name = #{serverName},
+			server_org_id = #{serverOrgId},
+			send_mode = #{sendMode},
+			specialty = #{specialty},
+			type = #{type},
+			material = #{material},
+			material_dispose = #{materialDispose},
+			time_limit_result = #{timeLimitResult},
+			time_limit_report = #{timeLimitReport},
+			standard_fee = #{standardFee},
+			special_fee = #{specialFee},
+			total_fee = #{totalFee},
+			appraisal_item = #{appraisalItem},
+			client_avoid = #{clientAvoid},
+			authorize_notification = #{authorizeNotification},
+			status = #{status},
+			proc_ins_id = #{procInsId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			surveyor_name = #{surveyorName},
+			surveyor_sex = #{surveyorSex},
+			surveyor_birthday = #{surveyorBirthday},
+			matters_entrusted = #{mattersEntrusted},
+			clinic_identification = #{clinicIdentification},
+			clinic_triage = #{clinicTriage},
+			clinic_medical = #{clinicMedical},
+			clinic_summary = #{clinicSummary},
+			clinic_xray = #{clinicXray},
+			clinic_ct = #{clinicCt},
+			idCard = #{idCard},
+			clinic_mri = #{clinicMri}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE clinic_register SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

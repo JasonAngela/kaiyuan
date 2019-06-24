@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.clinic.dao.ClinicWrittenDao">
+    
+	<sql id="clinicWrittenColumns">
+		a.register_id AS "register.id",
+		a.id AS "id",
+		a.file AS "file",
+		a.commentaries AS "commentaries",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.opinion AS "opinion",
+		a.clinicthispaper AS "clinicthispaper",
+		a.inspectionmethods AS "inspectionmethods",
+		a.appraisalstandard AS "appraisalstandard",
+		a.identifiedthrough AS "identifiedthrough",
+		a.cc AS "cc",
+		a.body AS "body",
+		a.reading AS "reading",
+		a.clinicattorney AS "clinicattorney",
+		a.analysisshows AS "analysisshows",
+		a.expertopinion AS "expertopinion",
+		a.authorisesurveyor AS "authorisesurveyor",
+		a.other AS "other",
+		a.delegate AS "delegate",
+		a.toaccept AS "toaccept",
+		a.acceptdate AS "acceptdate",
+		a.identification AS "identification",
+		a.bysurveyor AS "bysurveyor",
+		a.firstuser AS "firstuser",
+		a.secouduser AS "secouduser",
+		a.authoriseuser AS "authoriseuser",
+		a.identifylocations AS "identifylocations",
+		a.personnel AS "personnel"
+	</sql>
+	
+	
+	<sql id="clinicWrittenJoins">
+	</sql>
+    
+	<select id="get" resultType="ClinicWritten">
+		SELECT 
+			<include refid="clinicWrittenColumns"/>
+		FROM clinic_written a
+		<include refid="clinicWrittenJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	
+	<select id="findRegister" resultType="ClinicWritten">
+	
+	select * from clinic_written a where a.register_id=#{register.id}
+	</select>
+	
+	<select id="findList" resultType="ClinicWritten">
+		SELECT 
+			<include refid="clinicWrittenColumns"/>
+		FROM clinic_written a
+		<include refid="clinicWrittenJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ClinicWritten">
+		SELECT 
+			<include refid="clinicWrittenColumns"/>
+		FROM clinic_written a
+		<include refid="clinicWrittenJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO clinic_written(
+			register_id,
+			id,
+			file,
+			commentaries,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			opinion,
+			clinicthispaper,
+			inspectionmethods,
+			appraisalstandard,
+			identifiedthrough,
+			cc,
+			body,
+			reading,
+			clinicattorney,
+			analysisshows,
+			expertopinion,
+			authorisesurveyor,
+			other,
+			delegate,
+			toaccept,
+			acceptdate,
+			identification,
+			bysurveyor,
+			firstuser,
+			secouduser,
+			authoriseuser,
+			identifylocations,
+			personnel
+		) VALUES (
+			#{register.id},
+			#{id},
+			#{file},
+			#{commentaries},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{opinion},
+			#{clinicthispaper},
+			#{inspectionmethods},
+			#{appraisalstandard},
+			#{identifiedthrough},
+			#{cc},
+			#{body},
+			#{reading},
+			#{clinicattorney},
+			#{analysisshows},
+			#{expertopinion},
+			#{authorisesurveyor},
+			#{other},
+			#{delegate},
+			#{toaccept},
+			#{acceptdate},
+			#{identification},
+			#{bysurveyor},
+			#{firstuser},
+			#{secouduser},
+			#{authoriseuser},
+			#{identifylocations},
+			#{personnel}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE clinic_written SET 	
+			register_id = #{register.id},
+			file = #{file},
+			commentaries = #{commentaries},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			opinion = #{opinion},
+			clinicthispaper = #{clinicthispaper},
+			inspectionmethods = #{inspectionmethods},
+			appraisalstandard = #{appraisalstandard},
+			identifiedthrough = #{identifiedthrough},
+			cc = #{cc},
+			body = #{body},
+			reading = #{reading},
+			clinicattorney = #{clinicattorney},
+			analysisshows = #{analysisshows},
+			expertopinion = #{expertopinion},
+			authorisesurveyor = #{authorisesurveyor},
+			other = #{other},
+			delegate = #{delegate},
+			toaccept = #{toaccept},
+			acceptdate = #{acceptdate},
+			identification = #{identification},
+			bysurveyor = #{bysurveyor},
+			firstuser = #{firstuser},
+			secouduser = #{secouduser},
+			authoriseuser = #{authoriseuser},
+			identifylocations = #{identifylocations},
+			personnel = #{personnel}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE clinic_written SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

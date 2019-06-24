@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.dna.dao.DnaSecondarydataDao">
+    
+	<sql id="dnaSecondarydataColumns">
+		a.id AS "id",
+		a.x AS "x",
+		a.y AS "y",
+		a.specimencode AS "specimencode",
+		a.geneloci AS "geneloci",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="dnaSecondarydataJoins">
+	</sql>
+    
+	<select id="get" resultType="DnaSecondarydata">
+		SELECT 
+			<include refid="dnaSecondarydataColumns"/>
+		FROM dna_secondarydata a
+		<include refid="dnaSecondarydataJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findAll" resultType="DnaSecondarydata">
+	 select * from
+	  dna_secondarydata
+	</select>
+	
+	<select id="findNo"  resultType="DnaSecondarydata">
+		select * FROM dna_secondarydata a LEFT JOIN dna_experiment_str b ON a.SPECIMENCODE=b.SPECIMEN_CODE
+		where	 a.GENELOCI = b.GENE_LOCI
+	</select>
+	
+	<select id="findList" resultType="DnaSecondarydata">
+		SELECT 
+			<include refid="dnaSecondarydataColumns"/>
+		FROM dna_secondarydata a
+		<include refid="dnaSecondarydataJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="DnaSecondarydata">
+		SELECT 
+			<include refid="dnaSecondarydataColumns"/>
+		FROM dna_secondarydata a
+		<include refid="dnaSecondarydataJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO dna_secondarydata(
+			id,
+			x,
+			y,
+			specimencode,
+			geneloci,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{x},
+			#{y},
+			#{specimencode},
+			#{geneloci},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<delete id="deleteAll">
+	 delete from dna_secondarydata
+	</delete>
+	
+	<update id="update">
+		UPDATE dna_secondarydata SET 	
+			x = #{x},
+			y = #{y},
+			specimencode = #{specimencode},
+			geneloci = #{geneloci},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE dna_secondarydata SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

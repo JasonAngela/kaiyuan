@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.clinic.dao.ClinicInspectionDao">
+    
+	<sql id="clinicInspectionColumns">
+		a.register_id AS "register.id",
+		a.id AS "id",
+		a.file AS "file",
+		a.commentaries AS "commentaries",
+		a.clinicent_rusted AS "clinicentRusted",
+		a.clinic_identification AS "clinicIdentification",
+		a.clinic_person AS "clinicPerson",
+		a.clinic_attorney AS "clinicAttorney",
+		a.clinic_this_paper AS "clinicThisPaper",
+		a.inspection_methods AS "inspectionMethods",
+		a.appraisal_standard AS "appraisalStandard",
+		a.identified_through AS "identifiedThrough",
+		a.cc AS "cc",
+		a.body AS "body",
+		a.reading AS "reading",
+		a.analysis_shows AS "analysisShows",
+		a.expert_opinion AS "expertOpinion",
+		a.second_surveyor AS "secondSurveyor",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="clinicInspectionJoins">
+	</sql>
+    
+	<select id="findRegister" resultType="ClinicInspection" >
+		select * from clinic_inspection a
+	where a.register_id = #{register.id}
+	</select>    
+    
+	<select id="get" resultType="ClinicInspection">
+		SELECT 
+			<include refid="clinicInspectionColumns"/>
+		FROM clinic_inspection a
+		<include refid="clinicInspectionJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ClinicInspection">
+		SELECT 
+			<include refid="clinicInspectionColumns"/>
+		FROM clinic_inspection a
+		<include refid="clinicInspectionJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ClinicInspection">
+		SELECT 
+			<include refid="clinicInspectionColumns"/>
+		FROM clinic_inspection a
+		<include refid="clinicInspectionJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO clinic_inspection(
+			register_id,
+			id,
+			file,
+			commentaries,
+			clinicent_rusted,
+			clinic_identification,
+			clinic_person,
+			clinic_attorney,
+			clinic_this_paper,
+			inspection_methods,
+			appraisal_standard,
+			identified_through,
+			cc,
+			body,
+			reading,
+			analysis_shows,
+			expert_opinion,
+			second_surveyor,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{register.id},
+			#{id},
+			#{file},
+			#{commentaries},
+			#{clinicentRusted},
+			#{clinicIdentification},
+			#{clinicPerson},
+			#{clinicAttorney},
+			#{clinicThisPaper},
+			#{inspectionMethods},
+			#{appraisalStandard},
+			#{identifiedThrough},
+			#{cc},
+			#{body},
+			#{reading},
+			#{analysisShows},
+			#{expertOpinion},
+			#{secondSurveyor},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE clinic_inspection SET 	
+			register_id = #{register.id},
+			file = #{file},
+			commentaries = #{commentaries},
+			clinicent_rusted = #{clinicentRusted},
+			clinic_identification = #{clinicIdentification},
+			clinic_person = #{clinicPerson},
+			clinic_attorney = #{clinicAttorney},
+			clinic_this_paper = #{clinicThisPaper},
+			inspection_methods = #{inspectionMethods},
+			appraisal_standard = #{appraisalStandard},
+			identified_through = #{identifiedThrough},
+			cc = #{cc},
+			body = #{body},
+			reading = #{reading},
+			analysis_shows = #{analysisShows},
+			expert_opinion = #{expertOpinion},
+			second_surveyor = #{secondSurveyor},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE clinic_inspection SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

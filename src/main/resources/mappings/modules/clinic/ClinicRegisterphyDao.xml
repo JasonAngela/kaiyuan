@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.clinic.dao.ClinicRegisterphyDao">
+    
+	<sql id="clinicRegisterphyColumns">
+		a.id AS "id",
+		a.register_id AS "register.id",
+		a.type AS "type",
+		a.name AS "name",
+		a.quantity AS "quantity",
+		a.uploud AS "uploud",
+		a.remark AS "remark",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="clinicRegisterphyJoins">
+		LEFT JOIN clinic_register b ON b.id = a.register_id
+	</sql>
+    
+	<select id="get" resultType="ClinicRegisterphy">
+		SELECT 
+			<include refid="clinicRegisterphyColumns"/>
+		FROM clinic_registerphy a
+		<include refid="clinicRegisterphyJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ClinicRegisterphy">
+		SELECT 
+			<include refid="clinicRegisterphyColumns"/>
+		FROM clinic_registerphy a
+		<include refid="clinicRegisterphyJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="register != null and register.id != null and register.id != ''">
+				AND a.register_id = #{register.id}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ClinicRegisterphy">
+		SELECT 
+			<include refid="clinicRegisterphyColumns"/>
+		FROM clinic_registerphy a
+		<include refid="clinicRegisterphyJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO clinic_registerphy(
+			id,
+			register_id,
+			type,
+			name,
+			quantity,
+			uploud,
+			remark,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{register.id},
+			#{type},
+			#{name},
+			#{quantity},
+			#{uploud},
+			#{remark},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE clinic_registerphy SET 	
+			register_id = #{register.id},
+			type = #{type},
+			name = #{name},
+			quantity = #{quantity},
+			uploud = #{uploud},
+			remark = #{remark},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE clinic_registerphy SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		<choose>
+			<when test="id !=null and id != ''">
+				WHERE id = #{id}
+			</when>
+			<otherwise>
+				WHERE register_id = #{register.id}
+			</otherwise>
+		</choose>
+	</update>
+	
+</mapper>

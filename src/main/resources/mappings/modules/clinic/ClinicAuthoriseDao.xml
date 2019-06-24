@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.clinic.dao.ClinicAuthoriseDao">
+    
+	<sql id="clinicAuthoriseColumns">
+		a.register_id AS "register.id",
+		a.id AS "id",
+		a.opinion AS "opinion",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.clinic_this_paper AS "clinicThisPaper",
+		a.inspection_methods AS "inspectionMethods",
+		a.appraisal_standard AS "appraisalStandard",
+		a.identified_through AS "identifiedThrough",
+		a.cc AS "cc",
+		a.body AS "body",
+		a.reading AS "reading",
+		a.analysis_shows AS "analysisShows",
+		a.expert_opinion AS "expertOpinion",
+		a.authorise_surveyor AS "authoriseSurveyor",
+		a.other AS "other"
+	</sql>
+	
+	<sql id="clinicAuthoriseJoins">
+	</sql>
+    
+    <select id="findRegister" resultType="ClinicAuthorise">
+    	select * from
+    		clinic_authorise a  	
+    WHERE a.register_id=#{register.id}
+    </select>
+    
+    
+	<select id="get" resultType="ClinicAuthorise">
+		SELECT 
+			<include refid="clinicAuthoriseColumns"/>
+		FROM clinic_authorise a
+		<include refid="clinicAuthoriseJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ClinicAuthorise">
+		SELECT 
+			<include refid="clinicAuthoriseColumns"/>
+		FROM clinic_authorise a
+		<include refid="clinicAuthoriseJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ClinicAuthorise">
+		SELECT 
+			<include refid="clinicAuthoriseColumns"/>
+		FROM clinic_authorise a
+		<include refid="clinicAuthoriseJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO clinic_authorise(
+			register_id,
+			id,
+			opinion,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			clinic_this_paper,
+			inspection_methods,
+			appraisal_standard,
+			identified_through,
+			cc,
+			body,
+			reading,
+			analysis_shows,
+			expert_opinion,
+			authorise_surveyor,
+			other
+		) VALUES (
+			#{register.id},
+			#{id},
+			#{opinion},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{clinicThisPaper},
+			#{inspectionMethods},
+			#{appraisalStandard},
+			#{identifiedThrough},
+			#{cc},
+			#{body},
+			#{reading},
+			#{analysisShows},
+			#{expertOpinion},
+			#{authoriseSurveyor},
+			#{other}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE clinic_authorise SET 	
+			register_id = #{register.id},
+			opinion = #{opinion},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			clinic_this_paper = #{clinicThisPaper},
+			inspection_methods = #{inspectionMethods},
+			appraisal_standard = #{appraisalStandard},
+			identified_through = #{identifiedThrough},
+			cc = #{cc},
+			body = #{body},
+			reading = #{reading},
+			analysis_shows = #{analysisShows},
+			expert_opinion = #{expertOpinion},
+			authorise_surveyor = #{authoriseSurveyor},
+			other = #{other}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE clinic_authorise SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

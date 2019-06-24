@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.clcohol.dao.ClcoholReturnIteamDao">
+    
+	<sql id="clcoholReturnIteamColumns">
+		a.id AS "id",
+		a.register_id AS "register.id",
+		a.code AS "code",
+		a.idnumber AS "idnumber",
+		a.contactphone AS "contactphone",
+		a.other AS "other",
+		a.remaining AS "remaining",
+		a.total_number AS "totalNumber",
+		a.use_number AS "useNumber",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="clcoholReturnIteamJoins">
+		LEFT JOIN clcohol_return b ON b.id = a.register_id
+	</sql>
+    
+	<select id="get" resultType="ClcoholReturnIteam">
+		SELECT 
+			<include refid="clcoholReturnIteamColumns"/>
+		FROM clcohol_return_iteam a
+		<include refid="clcoholReturnIteamJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ClcoholReturnIteam">
+		SELECT 
+			<include refid="clcoholReturnIteamColumns"/>
+		FROM clcohol_return_iteam a
+		<include refid="clcoholReturnIteamJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="register != null and register.id != null and register.id != ''">
+				AND a.register_id = #{register.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ClcoholReturnIteam">
+		SELECT 
+			<include refid="clcoholReturnIteamColumns"/>
+		FROM clcohol_return_iteam a
+		<include refid="clcoholReturnIteamJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO clcohol_return_iteam(
+			id,
+			register_id,
+			code,
+			idnumber,
+			contactphone,
+			other,
+			remaining,
+			total_number,
+			use_number,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{register.id},
+			#{code},
+			#{idnumber},
+			#{contactphone},
+			#{other},
+			#{remaining},
+			#{totalNumber},
+			#{useNumber},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE clcohol_return_iteam SET 	
+			register_id = #{register.id},
+			code = #{code},
+			idnumber = #{idnumber},
+			contactphone = #{contactphone},
+			other = #{other},
+			remaining = #{remaining},
+			total_number = #{totalNumber},
+			use_number = #{useNumber},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE clcohol_return_iteam SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		<choose>
+			<when test="id !=null and id != ''">
+				WHERE id = #{id}
+			</when>
+			<otherwise>
+				WHERE register_id = #{register.id}
+			</otherwise>
+		</choose>
+	</update>
+	
+</mapper>

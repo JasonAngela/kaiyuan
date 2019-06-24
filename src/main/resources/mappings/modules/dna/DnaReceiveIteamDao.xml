@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.dna.dao.DnaReceiveIteamDao">
+    
+	<sql id="dnaReceiveIteamColumns">
+		a.id AS "id",
+		a.recive_id AS "recive.id",
+		a.specode AS "specode",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="dnaReceiveIteamJoins">
+		LEFT JOIN dna_receive b ON b.id = a.recive_id
+	</sql>
+    
+    <select id="getNot" resultType="DnaReceiveIteam" >
+		select <include refid="dnaReceiveIteamColumns"/>
+		from dna_receive_iteam a
+		left join dna_extract_record_item  b on a.specode = b.sample_number
+		where b.ID is null
+		ORDER BY specode
+	</select>
+    
+     
+	<select id="getCode" resultType="DnaReceiveIteam">
+		SELECT 
+			<include refid="dnaReceiveIteamColumns"/>
+		FROM dna_receive_iteam a
+		<include refid="dnaReceiveIteamJoins"/>
+		WHERE a.specode = #{specode}
+	</select>
+	
+    
+    
+	<select id="get" resultType="DnaReceiveIteam">
+		SELECT 
+			<include refid="dnaReceiveIteamColumns"/>
+		FROM dna_receive_iteam a
+		<include refid="dnaReceiveIteamJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="DnaReceiveIteam">
+		SELECT 
+			<include refid="dnaReceiveIteamColumns"/>
+		FROM dna_receive_iteam a
+		<include refid="dnaReceiveIteamJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="recive != null and recive.id != null and recive.id != ''">
+				AND a.recive_id = #{recive.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="DnaReceiveIteam">
+		SELECT 
+			<include refid="dnaReceiveIteamColumns"/>
+		FROM dna_receive_iteam a
+		<include refid="dnaReceiveIteamJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO dna_receive_iteam(
+			id,
+			recive_id,
+			specode,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{recive.id},
+			#{specode},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE dna_receive_iteam SET 	
+			recive_id = #{recive.id},
+			specode = #{specode},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE dna_receive_iteam SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		<choose>
+			<when test="id !=null and id != ''">
+				WHERE id = #{id}
+			</when>
+			<otherwise>
+				WHERE recive_id = #{recive.id}
+			</otherwise>
+		</choose>
+	</update>
+	
+</mapper>

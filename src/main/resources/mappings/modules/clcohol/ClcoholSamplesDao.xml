@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.clcohol.dao.ClcoholSamplesDao">
+    
+	<sql id="clcoholSamplesColumns">
+		a.id AS "id",
+		a.register_id AS "register.id",
+		a.total_number AS "totalNumber",
+		a.remaining AS "remaining",
+		a.receive_number AS "receiveNumber",
+		a.other AS "other",
+		a.other2 AS "other2",
+		a.other1 AS "other1",
+		a.create_by AS "createBy.id",
+		a.code AS "code",
+		a.create_date AS "createDate",
+		a.casecode AS "casecode",
+		a.update_by AS "updateBy.id",
+		a.entrust AS "entrust",
+		a.update_date AS "updateDate",
+		a.contactphone AS "contactphone",
+		a.remarks AS "remarks",
+		a.type AS "type",
+		a.sample_state AS "sampleState",
+		a.del_flag AS "delFlag",
+		a.entrust_date AS "entrustDate",
+		a.miningdate AS "miningdate",
+		a.uploud AS "uploud"
+	</sql>
+	
+	<sql id="clcoholSamplesJoins">
+	</sql>
+    
+	<select id="get" resultType="ClcoholSamples">
+		SELECT 
+			<include refid="clcoholSamplesColumns"/>
+		FROM clcohol_samples a
+		<include refid="clcoholSamplesJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	
+	<select id="getRegister" resultType="ClcoholSamples">
+	select * from
+		 clcohol_samples a 
+		  where a.register_id =#{register.id}
+	</select>
+	
+	
+	<select id="findList" resultType="ClcoholSamples">
+		SELECT 
+			<include refid="clcoholSamplesColumns"/>
+		FROM clcohol_samples a
+		<include refid="clcoholSamplesJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ClcoholSamples">
+		SELECT 
+			<include refid="clcoholSamplesColumns"/>
+		FROM clcohol_samples a
+		<include refid="clcoholSamplesJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO clcohol_samples(
+			id,
+			register_id,
+			total_number,
+			remaining,
+			receive_number,
+			other,
+			other2,
+			other1,
+			create_by,
+			code,
+			create_date,
+			casecode,
+			update_by,
+			entrust,
+			update_date,
+			contactphone,
+			remarks,
+			type,
+			sample_state,
+			del_flag,
+			entrust_date,
+			miningdate,
+			uploud
+		) VALUES (
+			#{id},
+			#{register.id},
+			#{totalNumber},
+			#{remaining},
+			#{receiveNumber},
+			#{other},
+			#{other2},
+			#{other1},
+			#{createBy.id},
+			#{code},
+			#{createDate},
+			#{casecode},
+			#{updateBy.id},
+			#{entrust},
+			#{updateDate},
+			#{contactphone},
+			#{remarks},
+			#{type},
+			#{sampleState},
+			#{delFlag},
+			#{entrustDate},
+			#{miningdate},
+			#{uploud}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE clcohol_samples SET 	
+			register_id = #{register.id},
+			total_number = #{totalNumber},
+			remaining = #{remaining},
+			receive_number = #{receiveNumber},
+			other = #{other},
+			other2 = #{other2},
+			other1 = #{other1},
+			code = #{code},
+			casecode = #{casecode},
+			update_by = #{updateBy.id},
+			entrust = #{entrust},
+			update_date = #{updateDate},
+			contactphone = #{contactphone},
+			remarks = #{remarks},
+			type = #{type},
+			sample_state = #{sampleState},
+			entrust_date = #{entrustDate},
+			miningdate = #{miningdate},
+			uploud = #{uploud}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE clcohol_samples SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

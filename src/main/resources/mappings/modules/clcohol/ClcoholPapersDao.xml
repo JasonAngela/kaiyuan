@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.clcohol.dao.ClcoholPapersDao">
+    
+	<sql id="clcoholPapersColumns">
+		a.id AS "id",
+		a.register_id AS "register.id",
+		a.entrust AS "entrust",
+		a.mattersentrusted AS "mattersentrusted",
+		a.acceptdate AS "acceptdate",
+		a.personbeing AS "personbeing",
+		a.basicfacts AS "basicfacts",
+		a.samplestatus AS "samplestatus",
+		a.workinstruction AS "workinstruction",
+		a.testingstandards AS "testingstandards",
+		a.instruments AS "instruments",
+		a.testpasses AS "testpasses",
+		a.people AS "people",
+		a.other AS "other",
+		a.other1 AS "other1",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="clcoholPapersJoins">
+	</sql>
+    
+	<select id="get" resultType="ClcoholPapers">
+		SELECT 
+			<include refid="clcoholPapersColumns"/>
+		FROM clcohol_papers a
+		<include refid="clcoholPapersJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ClcoholPapers">
+		SELECT 
+			<include refid="clcoholPapersColumns"/>
+		FROM clcohol_papers a
+		<include refid="clcoholPapersJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="register != null and register.id != null and register.id != ''">
+				AND a.register_id = #{register.id}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ClcoholPapers">
+		SELECT 
+			<include refid="clcoholPapersColumns"/>
+		FROM clcohol_papers a
+		<include refid="clcoholPapersJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="register != null and register.id != null and register.id != ''">
+				AND a.register_id = #{register.id}
+			</if>
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO clcohol_papers(
+			id,
+			register_id,
+			entrust,
+			mattersentrusted,
+			acceptdate,
+			personbeing,
+			basicfacts,
+			samplestatus,
+			workinstruction,
+			testingstandards,
+			instruments,
+			testpasses,
+			people,
+			other,
+			other1,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{register.id},
+			#{entrust},
+			#{mattersentrusted},
+			#{acceptdate},
+			#{personbeing},
+			#{basicfacts},
+			#{samplestatus},
+			#{workinstruction},
+			#{testingstandards},
+			#{instruments},
+			#{testpasses},
+			#{people},
+			#{other},
+			#{other1},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE clcohol_papers SET 	
+			register_id = 	#{register.id},
+			entrust = #{entrust},
+			mattersentrusted = #{mattersentrusted},
+			acceptdate = #{acceptdate},
+			personbeing = #{personbeing},
+			basicfacts = #{basicfacts},
+			samplestatus = #{samplestatus},
+			workinstruction = #{workinstruction},
+			testingstandards = #{testingstandards},
+			instruments = #{instruments},
+			testpasses = #{testpasses},
+			people = #{people},
+			other = #{other},
+			other1 = #{other1},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE clcohol_papers SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

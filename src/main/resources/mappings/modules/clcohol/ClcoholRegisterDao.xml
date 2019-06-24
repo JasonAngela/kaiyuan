@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.clcohol.dao.ClcoholRegisterDao">
+    
+	<sql id="clcoholRegisterColumns">
+		a.id AS "id",
+		a.code AS "code",
+		a.casecode AS "casecode",
+		a.clientname AS "clientname",
+		a.entrustdate AS "entrustdate",
+		a.contactphone AS "contactphone",
+		a.name AS "name",
+		a.sex AS "sex",
+		a.idnumber AS "idnumber",
+		a.mattersentrusted AS "mattersentrusted",
+		a.fication AS "fication",
+		a.waytosend AS "waytosend",
+		a.address AS "address",
+		a.recipient AS "recipient",
+		a.zipcode AS "zipcode",
+		a.avoid AS "avoid",
+		a.reson AS "reson",
+		a.opinion AS "opinion",
+		a.complete AS "complete",
+		a.material AS "material",
+		a.standardfee AS "standardfee",
+		a.specialfee AS "specialfee",
+		a.totalfee AS "totalfee",
+		a.appraisalitem AS "appraisalitem",
+		a.other AS "other",
+		a.other1 AS "other1",
+		a.other2 AS "other2",
+		a.other3 AS "other3",
+		a.other4 AS "other4",
+		a.other5 AS "other5",
+		a.proc_ins_id AS "procInsId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.makes_people AS "makesPeople",
+		a.update_by AS "updateBy.id",
+		a.type AS "type",
+		a.update_date AS "updateDate",
+		a.withdrawal AS "withdrawal",
+		a.signed AS "signed",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="clcoholRegisterJoins">
+	</sql>
+    
+	<select id="get" resultType="ClcoholRegister">
+		SELECT 
+			<include refid="clcoholRegisterColumns"/>
+		FROM clcohol_register a
+		<include refid="clcoholRegisterJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="ClcoholRegister">
+		SELECT 
+			<include refid="clcoholRegisterColumns"/>
+		FROM clcohol_register a
+		<include refid="clcoholRegisterJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="code != null and code != ''">
+				AND a.code LIKE 
+					<if test="dbName == 'oracle'">'%'||#{code}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{code}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{code},'%')</if>
+			</if>
+			<if test="casecode != null and casecode != ''">
+				AND a.casecode LIKE 
+					<if test="dbName == 'oracle'">'%'||#{casecode}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{casecode}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{casecode},'%')</if>
+			</if>
+			<if test="clientname != null and clientname != ''">
+				AND a.clientname LIKE 
+					<if test="dbName == 'oracle'">'%'||#{clientname}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{clientname}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{clientname},'%')</if>
+			</if>
+			<if test="entrustdate != null and entrustdate != ''">
+				AND a.entrustdate = #{entrustdate}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="makesPeople != null and makesPeople != ''">
+				AND a.makes_people = #{makesPeople}
+			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
+			<if test="beginCreateDate != null and endCreateDate != null and beginCreateDate != '' and endCreateDate != ''">
+				AND a.create_date BETWEEN #{beginCreateDate} AND #{endCreateDate}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="ClcoholRegister">
+		SELECT 
+			<include refid="clcoholRegisterColumns"/>
+		FROM clcohol_register a
+		<include refid="clcoholRegisterJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO clcohol_register(
+			id,
+			code,
+			casecode,
+			clientname,
+			entrustdate,
+			contactphone,
+			name,
+			sex,
+			idnumber,
+			mattersentrusted,
+			fication,
+			waytosend,
+			address,
+			recipient,
+			zipcode,
+			avoid,
+			reson,
+			opinion,
+			complete,
+			material,
+			standardfee,
+			specialfee,
+			totalfee,
+			appraisalitem,
+			other,
+			other1,
+			other2,
+			other3,
+			other4,
+			other5,
+			proc_ins_id,
+			create_by,
+			create_date,
+			makes_people,
+			update_by,
+			type,
+			update_date,
+			withdrawal,
+			signed,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{code},
+			#{casecode},
+			#{clientname},
+			#{entrustdate},
+			#{contactphone},
+			#{name},
+			#{sex},
+			#{idnumber},
+			#{mattersentrusted},
+			#{fication},
+			#{waytosend},
+			#{address},
+			#{recipient},
+			#{zipcode},
+			#{avoid},
+			#{reson},
+			#{opinion},
+			#{complete},
+			#{material},
+			#{standardfee},
+			#{specialfee},
+			#{totalfee},
+			#{appraisalitem},
+			#{other},
+			#{other1},
+			#{other2},
+			#{other3},
+			#{other4},
+			#{other5},
+			#{procInsId},
+			#{createBy.id},
+			#{createDate},
+			#{makesPeople},
+			#{updateBy.id},
+			#{type},
+			#{updateDate},
+			#{withdrawal},
+			#{signed},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE clcohol_register SET 	
+			code = #{code},
+			casecode = #{casecode},
+			clientname = #{clientname},
+			entrustdate = #{entrustdate},
+			contactphone = #{contactphone},
+			name = #{name},
+			sex = #{sex},
+			idnumber = #{idnumber},
+			mattersentrusted = #{mattersentrusted},
+			fication = #{fication},
+			waytosend = #{waytosend},
+			address = #{address},
+			recipient = #{recipient},
+			zipcode = #{zipcode},
+			avoid = #{avoid},
+			reson = #{reson},
+			opinion = #{opinion},
+			complete = #{complete},
+			material = #{material},
+			standardfee = #{standardfee},
+			specialfee = #{specialfee},
+			totalfee = #{totalfee},
+			appraisalitem = #{appraisalitem},
+			other = #{other},
+			other1 = #{other1},
+			other2 = #{other2},
+			other3 = #{other3},
+			other4 = #{other4},
+			other5 = #{other5},
+			proc_ins_id = #{procInsId},
+			makes_people = #{makesPeople},
+			update_by = #{updateBy.id},
+			type = #{type},
+			update_date = #{updateDate},
+			withdrawal = #{withdrawal},
+			signed = #{signed},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE clcohol_register SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
