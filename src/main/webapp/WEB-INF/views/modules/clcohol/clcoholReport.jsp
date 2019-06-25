@@ -59,7 +59,7 @@ line-height: 40px;
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="clcoholWritten" action="${ctx}/clcohol/clcoholWritten/save" method="post" class="form-horizontal">
 <div  style="width: 630px;" id="pagecontent" >		
-	<h4 align="center">江西景盛司法鉴定中心<br/>
+	<h4 align="center">上海开元司法鉴定中心<br/>
 		司法鉴定乙醇含量检测报告书
 	</h4>		
 	 <h5 align="right">开元[${simple}]伤鉴字第[${casecode}]号</h5>	
@@ -77,7 +77,7 @@ line-height: 40px;
 			<br/>
 			<h4  class="h-left">鉴定日期:</h4> ${clcoholFirst.other}
 			<br/>
-			<h4 class="h-left">鉴定地点:</h4> 江西景盛司法鉴定中心
+			<h4 class="h-left">鉴定地点:</h4> 上海开元司法鉴定中心
 			<br/>
 			<h4 class="h-left">在场人员:</h4> 本中心工作人员
 			<br/>

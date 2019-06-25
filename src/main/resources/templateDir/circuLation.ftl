@@ -2321,7 +2321,7 @@
                 <w:sz w:val="21" />
                 <w:sz-cs w:val="21" />
             </w:rPr>
-            <w:t>案件编号：景盛 [</w:t>
+            <w:t>案件编号：开元 [</w:t>
         </w:r>
         <w:r wsp:rsidR="00CB2C1F">
             <w:rPr>
@@ -2398,7 +2398,7 @@
                         <w:sz w:val="44" />
                         <w:sz-cs w:val="44" />
                     </w:rPr>
-                    <w:t>江西景盛司法鉴定中心</w:t>
+                    <w:t>上海开元司法鉴定中心</w:t>
                 </w:r>
             </w:p>
         </w:hdr>

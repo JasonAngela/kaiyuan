@@ -51,7 +51,7 @@
                 <w:sz w:val="30"/>
                 <w:szCs w:val="30"/>
               </w:rPr>
-              <w:t>江西景盛司法鉴定中心</w:t>
+              <w:t>上海开元司法鉴定中心</w:t>
             </w:r>
             <w:r>
               <w:rPr>
@@ -119,7 +119,7 @@
                 <w:rFonts w:ascii="宋体" w:hint="eastAsia"/>
                 <w:szCs w:val="21"/>
               </w:rPr>
-              <w:t>景盛</w:t>
+              <w:t>开元</w:t>
             </w:r>
             <w:r w:rsidR="002E6506">
               <w:rPr>
@@ -2528,7 +2528,7 @@
         <Lines>3</Lines>
         <Paragraphs>1</Paragraphs>
         <ScaleCrop>false</ScaleCrop>
-        <Company>江西景盛司法鉴定中心</Company>
+        <Company>上海开元司法鉴定中心</Company>
         <LinksUpToDate>false</LinksUpToDate>
         <CharactersWithSpaces>462</CharactersWithSpaces>
         <SharedDoc>false</SharedDoc>

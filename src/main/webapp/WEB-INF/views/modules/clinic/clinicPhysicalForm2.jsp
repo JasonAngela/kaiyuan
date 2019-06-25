@@ -117,7 +117,7 @@
 </head>
 <body>
 	<div id="a" class="o">
-		<h1 align="center">江西景盛司法鉴定中心<br/>
+		<h1 align="center">上海开元司法鉴定中心<br/>
 		法医临床</h1>
 	</div>
 	

@@ -80,7 +80,7 @@
                                             <w:kern w:val="0" />
                                             <w:sz w:val="44" />
                                         </w:rPr>
-                                        <w:t>江西景盛司法鉴定中心</w:t>
+                                        <w:t>上海开元司法鉴定中心</w:t>
                                     </w:r>
                                 </w:p>
                                 <w:p w:rsidR="009F58B8" w:rsidRDefault="009F58B8">
@@ -249,7 +249,7 @@
                                             <w:sz w:val="21" />
                                             <w:szCs w:val="21" />
                                         </w:rPr>
-                                        <w:t>景盛 [${simple!''}]物鉴字第
+                                        <w:t>开元 [${simple!''}]物鉴字第
 </w:t>
                                     </w:r>
                                     <w:r w:rsidR="00F73258">
@@ -401,7 +401,7 @@
                       <w:sz w:val="22"/>
                       <w:szCs w:val="22"/>
                     </w:rPr>
-                    <w:t xml:space="preserve">机构名称：江西景盛司法鉴定中心 </w:t>
+                    <w:t xml:space="preserve">机构名称：上海开元司法鉴定中心 </w:t>
                   </w:r>
                 </w:p>
                 <w:p w:rsidR="004A41B6" w:rsidRDefault="004A41B6" w:rsidP="004A41B6">

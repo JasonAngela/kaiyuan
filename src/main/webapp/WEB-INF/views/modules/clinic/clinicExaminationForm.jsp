@@ -93,9 +93,9 @@ table { border-collapse:collapse;box-sizing: border-box; }
 		<form:hidden path="act.procDefId"/>
 		<form:hidden id="flag" path="act.flag"/>
 		<sys:message content="${message}"/>	  
-			<h1 align="center">江西景盛司法鉴定中心<br/>
+			<h1 align="center">上海开元司法鉴定中心<br/>
 		司法鉴定委托书</h1>
-		<h6 style="margin-left: 696px;" id="lover1" >景盛[${simple}]伤鉴字第${casecode}号</h6>	
+		<h6 style="margin-left: 696px;" id="lover1" >开元[${simple}]伤鉴字第${casecode}号</h6>
 		<input type="hidden" name="register.id" value="${registerId}">                         	
 			<table width="800px" border="0" cellspac align="center" height="730" class="table1">
 				 	<tr>

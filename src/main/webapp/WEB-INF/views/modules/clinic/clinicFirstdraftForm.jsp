@@ -293,9 +293,9 @@ background-color: #F0FFFF;
     <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'" id="close"> 
     <img src="${ctxStatic}/images/x.png" ></a></div> 
 </div> 
- <h1 align="center">江西景盛司法鉴定中心<br/>
+ <h1 align="center">上海开元司法鉴定中心<br/>
 		司法鉴定委托书</h1>
-		<h6 style="margin-left: 696px;" id="lover1" >景盛[${simple}]伤鉴字第${casecode}号</h6>	
+		<h6 style="margin-left: 696px;" id="lover1" >开元[${simple}]伤鉴字第${casecode}号</h6>
 
  <h3>基本案情</h3>
 		<div class="control-group">

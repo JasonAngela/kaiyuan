@@ -335,10 +335,10 @@ background-color: #F0FFFF;
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>
 		<div id="pagecontent">
-<!-- 江西景盛司法鉴定中心 -->
-			<h1 align="center">江&nbsp;西&nbsp;景&nbsp;盛&nbsp;司&nbsp;法&nbsp;鉴&nbsp;定&nbsp;中&nbsp;心<br/>
+<!-- 上海开元司法鉴定中心 -->
+			<h1 align="center">上&nbsp;海&nbsp;开&nbsp;元&nbsp;司&nbsp;法&nbsp;鉴&nbsp;定&nbsp;中&nbsp;心<br/>
 		司&nbsp;法&nbsp;鉴&nbsp;定&nbsp;委&nbsp;托&nbsp;书</h1>
-		<h6 style="margin-left: 696px;" id="lover1" >景盛[${simple}]鉴/检字第${casecode}号</h6>
+		<h6 style="margin-left: 696px;" id="lover1" >开元[${simple}]鉴/检字第${casecode}号</h6>
 		<table width="900" align="center" class="inputTable">
 
 			<tr>
@@ -373,7 +373,7 @@ background-color: #F0FFFF;
 			   机&nbsp;&nbsp;构
 			   </th>
 			   <td colspan="5">
-			  机构名称: &nbsp;&nbsp;江西景盛司法鉴定中心&nbsp;&nbsp;&nbsp;&nbsp;许可证号:360010056   <br/>
+			  机构名称: &nbsp;&nbsp;上海开元司法鉴定中心&nbsp;&nbsp;&nbsp;&nbsp;许可证号:360010056   <br/>
 			  地址: &nbsp;&nbsp;1、上海市徐汇区漕溪路 250 号银海大楼 A 座 810－811 室；<br/>
 								&nbsp;&nbsp;2、上海市奉贤区航南公路 5856 号 404-407 室。<br/>
 		            联系人:<form:input path="serverName" value="${user.name}" class="input-small" />

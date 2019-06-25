@@ -62,7 +62,7 @@
                                 <w:szCs w:val="36"/>
                                 <w:lang w:bidi="ar"/>
                             </w:rPr>
-                            <w:t>景盛</w:t>
+                            <w:t>开元</w:t>
                         </w:r>
                         <w:r>
                             <w:rPr>
@@ -718,7 +718,7 @@
                                             <w:szCs w:val="27"/>
                                             <w:lang w:bidi="ar"/>
                                         </w:rPr>
-                                        <w:t xml:space="preserve">江西景盛司法鉴定中心 </w:t>
+                                        <w:t xml:space="preserve">上海开元司法鉴定中心 </w:t>
                                     </w:r>
                                 </w:p>
                             </w:tc>

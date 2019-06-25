@@ -151,9 +151,9 @@ background-color: #F0FFFF;
 		<input type="hidden" name="resgister.id" value="${registerId}">
 		
 		<div id="a" class="o" >
-		<h3 align="center">江西景盛司法鉴定中心br/>
+		<h3 align="center">上海开元司法鉴定中心br/>
 		    法医毒化室取（采）样 表</h3>
-		<h5 style="margin-left:481px;" id="lover1" >检案编号：景盛[${simple}]毒检字第${casecode}号</h5>	
+		<h5 style="margin-left:481px;" id="lover1" >检案编号：开元[${simple}]毒检字第${casecode}号</h5>
 	</div>
 <table  style="width: 659px; height: 288px;"  align="center" class="inputTable">
 			<tr>

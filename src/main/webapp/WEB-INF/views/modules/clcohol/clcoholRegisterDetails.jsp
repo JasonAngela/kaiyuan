@@ -86,7 +86,7 @@ background-color: #F0FFFF;
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>	
 		<div id="a" class="o">
-		<h1 align="center">江西景盛司法鉴定中心<br/>
+		<h1 align="center">上海开元司法鉴定中心<br/>
 		司法鉴定委托书</h1>
 		<h6 style="margin-left:698px;" id="lover1" >赣(景)[${simple}]物鉴字第${casecode}号</h6>	
 	</div>

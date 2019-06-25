@@ -89,7 +89,7 @@
 				<form:hidden id="flag" path="act.flag"/>
 				<sys:message content="${message}"/>	  
 				<div id="a" class="o" >
-		<h3 align="center">江西景盛司法鉴定中心<br/>
+		<h3 align="center">上海开元司法鉴定中心<br/>
 		    临床取（采）样 表</h3>
 		<h5 style="margin-left:584px;" id="lover1" >检案编号：赣(景)[${simple}]物鉴字第${casecode}号</h5>	
 	</div>

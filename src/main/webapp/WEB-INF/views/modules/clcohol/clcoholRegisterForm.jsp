@@ -90,9 +90,9 @@ background-color: #F0FFFF;
 		<sys:message content="${message}"/>	
 		
 		
-	<h1 align="center">江西景盛司法鉴定中心<br/>
+	<h1 align="center">上海开元司法鉴定中心<br/>
 		司法鉴定委托书</h1>
-		<h6 style="margin-left: 696px;" id="lover1" >景盛[${simple}]鉴/检字第${casecode}号</h6>	
+		<h6 style="margin-left: 696px;" id="lover1" >开元[${simple}]鉴/检字第${casecode}号</h6>
 		<table width="900" align="center" height="730" class="inputTable">
 			<tr>
 				<th width="120">委 托 人</th>

@@ -138,7 +138,7 @@ background-color: #F0FFFF;
 		<sys:message content="${message}"/>		
 		<input type="hidden" name="register.id" value="${registerId}">
 		<div id="a" class="o" >
-		<h3 align="center">江西景盛司法鉴定中心<br/>
+		<h3 align="center">上海开元司法鉴定中心<br/>
 		   酒精领取单</h3>
 	</div>
 	

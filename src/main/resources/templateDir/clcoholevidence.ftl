@@ -51,7 +51,7 @@
                 <w:sz w:val="30"/>
                 <w:szCs w:val="30"/>
               </w:rPr>
-              <w:t>江西景盛司法鉴定中心</w:t>
+              <w:t>上海开元司法鉴定中心</w:t>
             </w:r>
           </w:p>
           <w:p w:rsidR="00F02C02" w:rsidRDefault="00F02C02">
@@ -305,7 +305,7 @@
                 <w:sz w:val="28"/>
                 <w:szCs w:val="28"/>
               </w:rPr>
-              <w:t>检案编号：景盛</w:t>
+              <w:t>检案编号：开元</w:t>
             </w:r>
             <w:r w:rsidR="00F02C02">
               <w:rPr>

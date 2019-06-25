@@ -47,7 +47,7 @@
                 <w:sz w:val="36"/>
                 <w:szCs w:val="36"/>
               </w:rPr>
-              <w:t>江西景盛司法鉴定中心</w:t>
+              <w:t>上海开元司法鉴定中心</w:t>
             </w:r>
           </w:p>
           <w:p w:rsidR="00B73AE3" w:rsidRDefault="005643C4">
@@ -83,7 +83,7 @@
                 <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
                 <w:szCs w:val="21"/>
               </w:rPr>
-              <w:t>景盛[</w:t>
+              <w:t>开元[</w:t>
             </w:r>
             <w:r w:rsidR="007D5B43">
               <w:rPr>
@@ -814,7 +814,7 @@
                 <w:sz w:val="28"/>
                 <w:szCs w:val="28"/>
               </w:rPr>
-              <w:t>江西景盛司法鉴定中心</w:t>
+              <w:t>上海开元司法鉴定中心</w:t>
             </w:r>
           </w:p>
           <w:p w:rsidR="00B73AE3" w:rsidRDefault="005643C4">
@@ -1064,7 +1064,7 @@
               <w:rFonts w:ascii="宋体" w:hAnsi="宋体" w:hint="eastAsia"/>
               <w:szCs w:val="21"/>
             </w:rPr>
-            <w:t>景盛[</w:t>
+            <w:t>开元[</w:t>
           </w:r>
           <w:r w:rsidR="009067D5">
             <w:rPr>
@@ -2631,7 +2631,7 @@
         <HiddenSlides>0</HiddenSlides>
         <MMClips>0</MMClips>
         <ScaleCrop>false</ScaleCrop>
-        <Company>江西景盛司法鉴定中心</Company>
+        <Company>上海开元司法鉴定中心</Company>
         <LinksUpToDate>false</LinksUpToDate>
         <CharactersWithSpaces>751</CharactersWithSpaces>
         <SharedDoc>false</SharedDoc>

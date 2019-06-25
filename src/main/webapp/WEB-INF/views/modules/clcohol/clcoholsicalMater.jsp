@@ -141,7 +141,7 @@ background-color: #F0FFFF;
 </head>
 <body>
 	<form:form id="inputForm" modelAttribute="clcoholEvidence" action="${ctx}/clcohol/clcoholEvidence/save" method="post" class="form-horizontal">
-		<h3 align="center">江西景盛司法鉴定中心<br/>
+		<h3 align="center">上海开元司法鉴定中心<br/>
 		    法医毒化室取（采）样 表</h3>
 		<h5 style="margin-left:430px;" id="lover1" >检案编号：赣(景)[${simple}]物鉴字第${casecode}号</h5>	
 	</div>

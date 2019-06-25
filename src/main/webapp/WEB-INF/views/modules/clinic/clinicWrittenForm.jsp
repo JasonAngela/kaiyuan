@@ -76,10 +76,10 @@ line-height: 40px;
 		<input type="hidden" name="register.id" value="${registerId}" id="registerId">    
 		<sys:message content="${message}"/>
 <div  style="width: 930px;" id="dic">		
-	<h4 align="center">江西景盛司法鉴定中心<br/>
+	<h4 align="center">上海开元司法鉴定中心<br/>
 		法医临床司法鉴定意见书
 	</h4>		
-	 <h5 align="right">景盛[${datecode }]伤鉴字第[${casecode}]号</h5>		
+	 <h5 align="right">开元[${datecode }]伤鉴字第[${casecode}]号</h5>
 <h4>一:基本情况</h4>
 		<div class="control-group">
 			<div class="controls">

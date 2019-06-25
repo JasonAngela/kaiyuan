@@ -232,9 +232,9 @@ font-size : x-large;
 		<sys:message content="${message}"/>
 	<div id="pagecontent" style="width: 649;">
 	<div id="a" class="o">
-		<h1 align="center">江西景盛司法鉴定中心<br/>
+		<h1 align="center">上海开元司法鉴定中心<br/>
 		司法鉴定委托书</h1>
-		<h6 style="margin-left: 630px;" id="lover1" >景盛[${simple}]鉴/检字第${casecode}号</h6>	
+		<h6 style="margin-left: 630px;" id="lover1" >开元[${simple}]鉴/检字第${casecode}号</h6>
 	</div>
 		<table  style="width: 830px;"  width="830" align="center" height="730" class="inputTable">
 			<tr> 
